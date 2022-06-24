@@ -8,7 +8,7 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 $records_per_page = 5;
 
 // Prepare the SQL statement and get records from our asignacion_horas_extras table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT * FROM asignacion_horas_extras ORDER BY idAsignacion_Horas_Extras LIMIT :current_page, :record_per_page');
+$stmt = $pdo->prepare('SELECT * FROM asignacion_horas_extras JOIN empleados on empleados.idEmpleados= asignacion_horas_extras.idEmpleados ORDER BY idAsignacion_Horas_Extras LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
@@ -17,22 +17,29 @@ $asignacion_horas_extras = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Get the total number of asignacion_horas_extras, this is so we can determine whether there should be a next and previous button
 $num_asignacion_horas_extras = $pdo->query('SELECT COUNT(*) FROM asignacion_horas_extras')->fetchColumn();
+
+
+$join_empleado = $pdo->query('SELECT COUNT(*) FROM asignacion_horas_extras')->fetchColumn();
 ?>
+
+
 
 <?=template_header('Read')?>
 
 <div class="content read">
 	<h2>Lista de Horas extras</h2>
-	<a href="create.php" class="create-contact">    Crear Horas Extras</a>
+	<a href="create_hextras.php" class="create-contact">    Crear Horas Extras</a>
 	<table>
         <thead>
             <tr>
                 <td>#</td>
-                <td>Fecha asignada</td>
+                <td>Nombre de Empleado</td>
+                <td>Apellido de Empleado</td>
+                <td>Cedula de Empleado</td>
+                <td>Hora asignada</td>
                 <td>Motivo </td>
-                <td>Empleado</td>
                 <td>Horario</td>
-                <td>Fecha creado</td>
+                <td>Fecha</td>
                 <td></td>
             </tr>
         </thead>
@@ -40,9 +47,11 @@ $num_asignacion_horas_extras = $pdo->query('SELECT COUNT(*) FROM asignacion_hora
             <?php foreach ($asignacion_horas_extras as $contact): ?>
             <tr>
                 <td><?=$contact['idAsignacion_Horas_Extras']?></td>
+                <td><?=$contact['nombre']?></td>
+                <td><?=$contact['apellido']?></td>
+                <td><?=$contact['cedula']?></td>
                 <td><?=$contact['asignacion']?></td>
                 <td><?=$contact['motivo']?></td>
-                <td><?=$contact['idEmpleados']?></td>
                 <td><?=$contact['idHorario']?></td>
                 <td><?=$contact['dia']?></td>
                 <td class="actions">

@@ -9,7 +9,6 @@ if (!empty($_POST)) {
     $idAsignacion_Horas_Extras = isset($_POST['idAsignacion_Horas_Extras']) && !empty($_POST['idAsignacion_Horas_Extras']) && $_POST['idAsignacion_Horas_Extras'] != 'auto' ? $_POST['idAsignacion_Horas_Extras'] : NULL;
     // Check if POST variable "asignacion" exists, if not default the value to blank, basically the same for all variables
     $asignacion = isset($_POST['asignacion']) ? $_POST['asignacion'] : '';
-    $tiempo_descanso = isset($_POST['tiempo_descanso']) ? $_POST['tiempo_descanso'] : '';
     $motivo = isset($_POST['motivo']) ? $_POST['motivo'] : '';
     $idEmpleados = isset($_POST['idEmpleados']) ? $_POST['idEmpleados'] : '';
     $idHorario = isset($_POST['idHorario']) ? $_POST['idHorario'] : '';
@@ -29,37 +28,26 @@ if (!empty($_POST)) {
     <h2>Horas extras</h2>
     <form action="create.php" method="post">
         <label for="idAsignacion_Horas_Extras">idAsignacion_Horas_Extras</label>
-        <label for="asignacion">Hora de inicio</label>
+        <label for="asignacion">Hora asignada</label>
         <input type="text" name="idAsignacion_Horas_Extras" placeholder="26" value="Auto" id="idAsignacion_Horas_Extras" readonly>
         <input type="time" name="asignacion" placeholder="Cardo Dalisay" id="asignacion" required>
-        <label for="tiempo_descanso">Tiempo de	descanso</label>
-        <label for="motivo">Hora de salida</label>
-        <input type="time" name="tiempo_descanso" id="tiempo_descanso" required>
-        <input type="time" name="motivo"  id="motivo" required>
+        <label for="motivo">Motivo:</label>
+        <textarea id="motivo" name="motivo" rows="4" cols="50"></textarea>
         <label for="idEmpleados"></label>
         <label for="dia"></label>
 
-        <label for="idEmpleados" >Dias libres:</label >
+        <label for="idEmpleados" >Empleado</label >
         <select name="idEmpleados" id="idEmpleados" required>
-            <option value="" disabled selected>Dia libre 1</option>
-            <option value="Lunes">Lunes</option>
-            <option value="Martes">Martes</option>
-            <option value="Miercoles">Miercoles</option>
-            <option value="Jueves">Jueves</option>
-            <option value="Viernes">Viernes</option>
-            <option value="Sabado">Sabado</option>
-            <option value="Domingo">Domingo</option>
-        </select>        
+
+
+        </select> 
+        <label for="idEmpleados" ></label >       
+        <label for="idEmpleados" >Horario</label >
         <select name="idHorario" id="idHorario" required>
-            <option value="" disabled selected>Dia libre 2</option>
-            <option value="Lunes">Lunes</option>
-            <option value="Martes">Martes</option>
-            <option value="Miercoles">Miercoles</option>
-            <option value="Jueves">Jueves</option>
-            <option value="Viernes">Viernes</option>
-            <option value="Sabado">Sabado</option>
-            <option value="Domingo">Domingo</option>
+
+        
         </select>
+        <label for="idEmpleados" ></label >
         <label for="dia" >Fecha de Creacion</label>
         <label for="dia"></label>
         <input type="datetime-local" name="dia" value="<?= date("d/m/Y H:i:s") ?>" id="dia" required>

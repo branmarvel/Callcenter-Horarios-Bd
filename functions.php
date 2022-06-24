@@ -17,9 +17,11 @@ echo <<<EOT
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>$title</title>
+		<title>Horarios</title>
 		<link href="style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<link href=".\Lib\select2\css\select2.min.css" rel="stylesheet" />
+		<script src=".\Lib\select2\js\select2.full.min.js"></script>
 	</head>
 	<body>
     <nav class="navtop">
