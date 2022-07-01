@@ -46,15 +46,6 @@ $stmt3->execute();
     <h2>Actualizar Horario #<?=$contact['idAsignacion_Horas_Extras']?></h2>
     <form action="update_hextras.php?idAsignacion_Horas_Extras=<?=$contact['idAsignacion_Horas_Extras']?>" method="post">
     <label for="idAsignacion_Horas_Extras">idAsignacion_Horas_Extras</label>
-        <label for="asignacion">Hora asignada</label>
-        <input type="text" name="idAsignacion_Horas_Extras" placeholder="" value="<?=$contact['idAsignacion_Horas_Extras']?>" id="idAsignacion_Horas_Extras" readonly>
-        <input type="time" name="asignacion" placeholder="Cardo Dalisay" id="asignacion" value="<?=$contact['asignacion']?>" required>
-        <label for="motivo">Motivo:</label>
-        <textarea id="motivo" value="<?=$contact['motivo']?>" name="motivo" rows="4" cols="50"></textarea>
-        <label for=""></label>
-        <label for="dia"></label>
-        <label for="idEmpleados" >Empleado</label >
-	
         <?php
 echo '<select name="idEmpleados" id="idEmpleados" class="selector2" required>';
 // For each row from the DB display a new <option>

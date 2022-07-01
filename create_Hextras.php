@@ -10,40 +10,75 @@ if (!empty($_POST)) {
     // Check if POST variable "asignacion" exists, if not default the value to blank, basically the same for all variables
     $asignacion = isset($_POST['asignacion']) ? $_POST['asignacion'] : '';
     $motivo = isset($_POST['motivo']) ? $_POST['motivo'] : '';
+    $dia = isset($_POST['dia']) ? $_POST['dia'] : date("d/m/Y H:i:s");
     $idEmpleados = isset($_POST['idEmpleados']) ? $_POST['idEmpleados'] : '';
     $idHorario = isset($_POST['idHorario']) ? $_POST['idHorario'] : '';
-    $dia = isset($_POST['dia']) ? $_POST['dia'] : date("d/m/Y H:i:s");
     // Insert new record into the asignacion_horas_extras table
-    $stmt = $pdo->prepare('INSERT INTO asignacion_horas_extras VALUES (?, ?, ?, ?, ?, ?, ?)');
-    $stmt->execute([$idAsignacion_Horas_Extras, $asignacion, $tiempo_descanso, $motivo, $idEmpleados, $idHorario, $dia]);
+    $stmt = $pdo->prepare('INSERT INTO asignacion_horas_extras  (`idAsignacion_Horas_Extras`, `asignacion`, `motivo`, `dia`, `idEmpleados`, `idHorario`)  VALUES (?, ?, ?, ?, ?, ?)');
+    $stmt->execute([$idAsignacion_Horas_Extras, $asignacion, $motivo, $dia, $idEmpleados, $idHorario ]);
     // Output message
     $msg = 'Creado exitosamente!';
     
 }
+?>
+<?php 
+$stmt2 = $pdo->prepare("SELECT *
+FROM `empleado_horario` 
+INNER JOIN empleados ON empleados.idEmpleados = empleado_horario.idEmpleados");
+$stmt2->execute();
+$stmt3 = $pdo->prepare("SELECT *
+FROM `empleado_horario` 
+INNER JOIN horario ON horario.idHorario = empleado_horario.idHorario ");
+$stmt3->execute();
+
 ?>
 
 <?= template_header('Create') ?>
 
 <div class="content update">
     <h2>Horas extras</h2>
-    <form action="create.php" method="post">
+    <form action="create_hextras.php" method="post">
         <label for="idAsignacion_Horas_Extras">idAsignacion_Horas_Extras</label>
         <label for="asignacion">Hora asignada</label>
-        <input type="text" name="idAsignacion_Horas_Extras" placeholder="26" value="Auto" id="idAsignacion_Horas_Extras" readonly>
+        <input type="text" name="idAsignacion_Horas_Extras" placeholder="" value="Auto" id="idAsignacion_Horas_Extras" readonly>
         <input type="time" name="asignacion" placeholder="Cardo Dalisay" id="asignacion" required>
         <label for="motivo">Motivo:</label>
         <textarea id="motivo" name="motivo" rows="4" cols="50"></textarea>
-        <label for="idEmpleados"></label>
+        <label for=""></label>
         <label for="dia"></label>
-
         <label for="idEmpleados" >Empleado</label >
-        <select name="idEmpleados" id="idEmpleados" required>
+	
+			<?php
+echo '<select name="idEmpleados" id="idEmpleados" class="selector2" required>';
+// For each row from the DB display a new <option>
+foreach ($stmt2 as $row) {
+    // value attribute is optional if the value and the text is the same
+    echo '<option value="'.htmlspecialchars($row['idEmpleados']).'">';
+    echo htmlspecialchars($row['idEmpleados']).' ';
+    echo htmlspecialchars($row['apellido']).' C.i-';
+    echo htmlspecialchars($row['cedula']); // The text to be displayed to the user
+    echo '</option>';
+}
+echo '</select>';
+			?>
+ <label for="idHorario" >Horario</label >
 
-
-        </select> 
+            			<?php
+echo '<select name="idHorario" id="idHorario" class="selector2" required>';
+// For each row from the DB display a new <option>
+foreach ($stmt3 as $row) {
+    // value attribute is optional if the value and the text is the same
+    echo '<option value="'.htmlspecialchars($row['idHorario']).'">';
+    echo htmlspecialchars($row['idHorario']).' Hora de inicio: ';
+    echo htmlspecialchars($row['hora_inicio']).' Hora final: ';
+    echo htmlspecialchars($row['hora_final']).' Dias libres: ';
+    echo htmlspecialchars($row['dia_libre_1']).' ';
+    echo htmlspecialchars($row['dia_libre_2']).' ';
+    echo '</option>';
+}
+echo '</select>';
+			?>
         <label for="idEmpleados" ></label >       
-        <label for="idEmpleados" >Horario</label >
-        <select name="idHorario" id="idHorario" required>
 
         
         </select>
