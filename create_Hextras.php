@@ -40,10 +40,10 @@ $stmt3->execute();
     <form action="create_hextras.php" method="post">
         <label for="idAsignacion_Horas_Extras">idAsignacion_Horas_Extras</label>
         <label for="asignacion">Hora asignada</label>
-        <input type="text" name="idAsignacion_Horas_Extras" placeholder="" value="Auto" id="idAsignacion_Horas_Extras" readonly>
-        <input type="time" name="asignacion" placeholder="Cardo Dalisay" id="asignacion" required>
+        <input type="text" name="idAsignacion_Horas_Extras" placeholder="" value="Auto" id="idAsignacion_Horas_Extras" readonly>    
+        <input type="datetime-local" name="asignacion" value="<?php echo date('Y-m-d\TH:i:s'); ?>" id="asignacion" required min="<?php echo date('Y-m-d\TH:i:s'); ?>">
         <label for="motivo">Motivo:</label>
-        <textarea id="motivo" name="motivo" rows="4" cols="50"></textarea>
+        <textarea id="motivo" name="motivo" rows="4" cols="50" required="required"></textarea>
         <label for=""></label>
         <label for="dia"></label>
         <label for="idEmpleados" >Empleado</label >
@@ -83,9 +83,10 @@ echo '</select>';
         
         </select>
         <label for="idEmpleados" ></label >
-        <label for="dia" >Fecha de Creacion</label>
+        <label for="dia" >Fecha de creacion</label>
         <label for="dia"></label>
-        <input type="datetime-local" name="dia" value="<?= date("d/m/Y H:i:s") ?>" id="dia" required>
+        <input type="datetime-local" name="dia" value="<?php echo date('Y-m-d\TH:i:s'); ?>" id="dia" required readonly>
+        
 
 <label for=""></label>
         <input type="submit" value="Crear Horas Extras">

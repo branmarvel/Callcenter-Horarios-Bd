@@ -69,10 +69,10 @@ echo '</select>';
         <label for="" ></label >
         <label for="fecha" >Fecha de asignacion</label>
         <label for="fecha"></label>
-        <input type="datetime-local" name="fecha" value="<?= date("d/m/Y H:i:s") ?>" id="fecha" required>
+        <input type="datetime-local" name="fecha" value="<?php echo date('Y-m-d\TH:i:s'); ?>" id="fecha" required readonly>
 
 <label for=""></label>
-        <input type="submit" value="Crear Horas Extras">
+        <input type="submit" value="Asignar Horario">
     </form>
     <?php if ($msg) : ?>
         <p><?= $msg ?></p>

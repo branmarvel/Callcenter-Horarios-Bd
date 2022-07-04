@@ -41,6 +41,8 @@ echo <<<EOT
 
 <script src=".\Lib\select2\js\select2.full.min.js"></script>
 <script src=".\Lib\select2\js\select2-ready.js"></script>
+
+
     </body>
 </html>
 EOT;

@@ -67,10 +67,10 @@ $join_empleado = $pdo->query('SELECT COUNT(*) FROM asignacion_horas_extras')->fe
     </table>
 	<div class="pagination">
 		<?php if ($page > 1): ?>
-		<a href="read.php?page=<?=$page-1?>"><i class="fas fa-angle-double-left fa-sm"></i></a>
+		<a href="read_hextras.php?page=<?=$page-1?>"><i class="fas fa-angle-double-left fa-sm"></i></a>
 		<?php endif; ?>
 		<?php if ($page*$records_per_page < $num_asignacion_horas_extras): ?>
-		<a href="read.php?page=<?=$page+1?>"><i class="fas fa-angle-double-right fa-sm"></i></a>
+		<a href="read_hextras.php?page=<?=$page+1?>"><i class="fas fa-angle-double-right fa-sm"></i></a>
 		<?php endif; ?>
 	</div>
 </div>

@@ -62,7 +62,7 @@ if (!empty($_POST)) {
         </select>
         <label for="fecha_reg" >Fecha de Creacion</label>
         <label for="fecha_reg"></label>
-        <input type="datetime-local" name="fecha_reg" value="<?= date("d/m/Y H:i:s") ?>" id="fecha_reg" required>
+        <input type="datetime-local" name="fecha_reg" value="<?php echo date('Y-m-d\TH:i:s'); ?>" id="fecha_reg" required readonly>
 
 <label for=""></label>
         <input type="submit" value="Crear horario">
