@@ -10,14 +10,14 @@ if (isset($_GET['idAsignacion_Horas_Extras'])) {
         $asignacion = isset($_POST['asignacion']) ? $_POST['asignacion'] : '';
         $motivo = isset($_POST['motivo']) ? $_POST['motivo'] : '';
         $dia = isset($_POST['dia']) ? $_POST['dia'] : date('Y-m-d H:i:s');
-        $idEmpleados = isset($_POST['idEmpleados']) ? $_POST['idEmpleados'] : '';
-        $idHorario = isset($_POST['idHorario']) ? $_POST['idHorario'] : '';
+        $idempleado_horario = isset($_POST['idempleado_horario']) ? $_POST['idempleado_horario'] : '';
+
         // Update the record
         $stmt = $pdo->prepare('UPDATE `asignacion_horas_extras` 
-        SET `asignacion` = ?, `motivo` = ?, `dia` = ? `asignacion_horas_extras`.`idEmpleados` = ? `asignacion_horas_extras`.`idHorario` = ?
+        SET `asignacion` = ?, `motivo` = ?, `dia` = ?, `idempleado_horario` = ?
         
         WHERE `asignacion_horas_extras`.`idAsignacion_Horas_Extras` = ?;');
-        $stmt->execute([$idAsignacion_Horas_Extras, $asignacion, $motivo, $dia, $idEmpleados, $idHorario, $_GET['idAsignacion_Horas_Extras' ]]);
+        $stmt->execute([$idAsignacion_Horas_Extras, $asignacion, $motivo, $dia, $idempleado_horario, $_GET['idAsignacion_Horas_Extras' ]]);
         $msg = 'Actualizado Exitosamente!';
     }
     // Get the contact from the asignacion_horas_extras table
@@ -34,10 +34,7 @@ $stmt2 = $pdo->prepare("SELECT *
 FROM `empleado_horario` 
 INNER JOIN empleados ON empleados.idEmpleados = empleado_horario.idEmpleados");
 $stmt2->execute();
-$stmt3 = $pdo->prepare("SELECT *
-FROM `empleado_horario` 
-INNER JOIN horario ON horario.idHorario = empleado_horario.idHorario ");
-$stmt3->execute();
+
 ?>
 
 <?=template_header('Read')?>
@@ -48,44 +45,28 @@ $stmt3->execute();
     <label for="idAsignacion_Horas_Extras">idAsignacion_Horas_Extras</label>
         <label for="asignacion">Hora asignada</label>
         <input type="text" name="idAsignacion_Horas_Extras" placeholder="" value="<?=$contact['idAsignacion_Horas_Extras']?>" id="idAsignacion_Horas_Extras" readonly>
-        <input type="time" name="asignacion" placeholder="Cardo Dalisay" id="asignacion" value="<?=$contact['asignacion']?>" required>
+        <input type="time" name="asignacion"  id="asignacion" value="<?=$contact['asignacion']?>" required>
         <label for="motivo">Motivo:</label>
         <textarea id="motivo" value="<?=$contact['motivo']?>" name="motivo" rows="4" cols="50"></textarea>
         <label for=""></label>
-        <label for="dia"></label>
-        <label for="idEmpleados" >Empleado</label >
+        <label for=""></label>
+        <label for="idempleado_horario" >Empleado</label >
 	
         <?php
-echo '<select name="idEmpleados" id="idEmpleados" class="selector2" required>';
+echo '<select name="idempleado_horario" id="idempleado_horario" class="selector2" required>';
 // For each row from the DB display a new <option>
 foreach ($stmt2 as $row) {
     // value attribute is optional if the value and the text is the same
-    echo '<option value="'."<?=$contact[idEmpleados]?>".'">';
-    echo htmlspecialchars($row['idEmpleados']).' ';
+    echo '<option value="'.htmlspecialchars($row['idAsignacion_Horas_Extras']).'">';
+    echo htmlspecialchars($row['idempleado_horario']).' ';
     echo htmlspecialchars($row['apellido']).' C.i-';
     echo htmlspecialchars($row['cedula']); // The text to be displayed to the user
     echo '</option>';
 }
 echo '</select>';
 			?>
- <label for="idHorario" >Horario</label >
 
-            			<?php
-echo '<select name="idHorario" id="idHorario" class="selector2" required>';
-// For each row from the DB display a new <option>
-foreach ($stmt3 as $row) {
-    // value attribute is optional if the value and the text is the same
-    echo '<option value="'."<?=$contact[idHorario]?>".'">';
-    echo htmlspecialchars($row['idHorario']).' Hora de inicio: ';
-    echo htmlspecialchars($row['hora_inicio']).' Hora final: ';
-    echo htmlspecialchars($row['hora_final']).' Dias libres: ';
-    echo htmlspecialchars($row['dia_libre_1']).' ';
-    echo htmlspecialchars($row['dia_libre_2']).' ';
-    echo '</option>';
-}
-echo '</select>';
-			?>
-        <label for="idEmpleados" ></label >       
+        <label for="idempleado_horario" ></label >       
 
 
 

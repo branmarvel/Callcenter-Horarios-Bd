@@ -53,7 +53,7 @@ $join_empleado = $pdo->query('SELECT COUNT(*) FROM empleado_horario')->fetchColu
                 <td><?=$contact2['idHorario']?></td>
 
                 <td class="actions">
-                    <a href="update_asignar.php?idEmpleados=<?=$contact2['idEmpleados']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
+                    <!-- <a href="update_asignar.php?idEmpleados=<?=$contact2['idEmpleados']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a> -->
                     <a href="delete_Asignar.php?idEmpleados=<?=$contact2['idEmpleados']?>&idHorario=<?=$contact2['idHorario']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
                     
                 </td>

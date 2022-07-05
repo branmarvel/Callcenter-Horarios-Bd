@@ -27,10 +27,10 @@ echo <<<EOT
     <nav class="navtop">
     	<div>
     		<h1>Call center XYZ- Asignacion de horarios</h1>
-            <a href="index.php"><i class="fas fa-home"></i>Home</a>
-			<a href="Read_asignar.php"><i class="fas fa-clock"></i>Horarios Asignados</a>
+            <a href="index.php"><i class="fas fa-home"></i>Home</a>		
     		<a href="read.php"><i class="fas fa-clock"></i>Lista de horarios</a>
 			<a href="read_hextras.php"><i class="fas fa-hourglass-half"></i>Horas Extras</a>
+			<a href="Read_asignar.php"><i class="fas fa-clock"></i>Horarios Asignados</a>
     	</div>
     </nav>
 EOT;

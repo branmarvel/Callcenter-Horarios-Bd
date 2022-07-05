@@ -8,9 +8,10 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 $records_per_page = 5;
 
 // Prepare the SQL statement and get records from our asignacion_horas_extras table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT * 
-FROM asignacion_horas_extras 
-JOIN empleados on empleados.idEmpleados= asignacion_horas_extras.idEmpleados 
+$stmt = $pdo->prepare('SELECT *
+FROM `empleado_horario` 
+JOIN empleados ON empleados.idEmpleados = empleado_horario.idEmpleados
+JOIN asignacion_horas_extras ON asignacion_horas_extras.idempleado_horario = empleado_horario.idempleado_horario
 ORDER BY idAsignacion_Horas_Extras LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
@@ -55,10 +56,10 @@ $join_empleado = $pdo->query('SELECT COUNT(*) FROM asignacion_horas_extras')->fe
                 <td><?=$contact['cedula']?></td>
                 <td><?=$contact['asignacion']?></td>
                 <td><?=$contact['motivo']?></td>
-                <td><?=$contact['idHorario']?></td>
+                <td><?=$contact['idempleado_horario']?></td>
                 <td><?=$contact['dia']?></td>
                 <td class="actions">
-                    <a href="update_Hextras.php?idAsignacion_Horas_Extras=<?=$contact['idAsignacion_Horas_Extras']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
+                    <!-- <a href="update_Hextras.php?idAsignacion_Horas_Extras=<?=$contact['idAsignacion_Horas_Extras']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a> -->
                     <a href="delete_Hextras.php?idAsignacion_Horas_Extras=<?=$contact['idAsignacion_Horas_Extras']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
                 </td>
             </tr>

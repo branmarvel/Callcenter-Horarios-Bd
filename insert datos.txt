@@ -1,0 +1,29 @@
+
+
+INSERT INTO `cargo_empleado` (`idCargo_Empleado`, `tipo_cargo`) VALUES
+(1, 'Empleado'),
+(2, 'Gerente');
+
+INSERT INTO `departamento` (`idDepartamento`, `nombre_departamento`) VALUES
+(1, 'Departamento 1'),
+(2, 'Departamento 2');
+
+INSERT INTO `empleados` (`idEmpleados`, `nombre`, `apellido`, `cedula`, `fecha_ingreso`, `fecha_egreso`, `direccion`, `telefono`, `estado_laboral`, `idCargo_Empleado`, `idDepartamento`) VALUES
+(11, 'Kaseem', 'Wallace', 2690971, 'Dec 22, 2022', 'Mar 29, 2023', '118-6099 Id, Rd.', '1-517-728-8977', 'est', 1, 1),
+(12, 'Patrick', 'Turner', 24566464, 'Sep 21, 2021', 'Sep 30, 2022', 'Ap #117-3268 Eu Road', '1-784-810-7678', 'ipsum', 1, 1),
+(13, 'Mark', 'Boyd', 6423289, 'Jun 24, 2022', 'Feb 25, 2022', '645-1636 In Rd.', '(628) 821-4238', 'porttitor', 2, 1),
+(14, 'Elton', 'Mcclain', 17186272, 'Apr 24, 2022', 'Feb 3, 2022', '398-1990 Dui. Ave', '1-374-341-1342', 'sed', 2, 1),
+(15, 'Cody', 'Williams', 2051085, 'Mar 24, 2023', 'Oct 28, 2022', '713-6461 Integer Rd.', '1-270-136-5142', 'quis,', 2, 1);
+
+INSERT INTO `horario` (`idHorario`, `hora_inicio`, `tiempo_descanso`, `hora_final`, `dia_libre_1`, `dia_libre_2`, `fecha_reg`) VALUES
+(25, '16:50', '16:51', '16:53', 'Lunes', 'Miercoles', '2022-06-23T16:50');
+
+INSERT INTO `empleado_horario` (`idEmpleados`, `idHorario`, `fecha`) VALUES
+(11, 25, '2022-06-14'),
+(13, 25, '2022-06-22'),
+(14, 25, '0000-00-00'),
+(15, 25, '2022-06-01');
+
+INSERT INTO `asignacion_horas_extras` (`idAsignacion_Horas_Extras`, `asignacion`, `motivo`, `dia`, `idEmpleados`, `idHorario`) VALUES
+(1, '17:25:06', 'porque si', '2022-06-06', 11, 25),
+(2, '17:47:50', 'porque si', '2022-06-14', 14, 25);

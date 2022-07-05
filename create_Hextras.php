@@ -11,11 +11,11 @@ if (!empty($_POST)) {
     $asignacion = isset($_POST['asignacion']) ? $_POST['asignacion'] : '';
     $motivo = isset($_POST['motivo']) ? $_POST['motivo'] : '';
     $dia = isset($_POST['dia']) ? $_POST['dia'] : date("d/m/Y H:i:s");
-    $idEmpleados = isset($_POST['idEmpleados']) ? $_POST['idEmpleados'] : '';
-    $idHorario = isset($_POST['idHorario']) ? $_POST['idHorario'] : '';
+    $idempleado_horario = isset($_POST['idempleado_horario']) ? $_POST['idempleado_horario'] : '';
+  
     // Insert new record into the asignacion_horas_extras table
-    $stmt = $pdo->prepare('INSERT INTO asignacion_horas_extras  (`idAsignacion_Horas_Extras`, `asignacion`, `motivo`, `dia`, `idEmpleados`, `idHorario`)  VALUES (?, ?, ?, ?, ?, ?)');
-    $stmt->execute([$idAsignacion_Horas_Extras, $asignacion, $motivo, $dia, $idEmpleados, $idHorario ]);
+    $stmt = $pdo->prepare('INSERT INTO asignacion_horas_extras  (`idAsignacion_Horas_Extras`, `asignacion`, `motivo`, `dia`, `idempleado_horario`)  VALUES (?, ?, ?, ?, ?)');
+    $stmt->execute([$idAsignacion_Horas_Extras, $asignacion, $motivo, $dia, $idempleado_horario ]);
     // Output message
     $msg = 'Creado exitosamente!';
     
@@ -26,10 +26,6 @@ $stmt2 = $pdo->prepare("SELECT *
 FROM `empleado_horario` 
 INNER JOIN empleados ON empleados.idEmpleados = empleado_horario.idEmpleados");
 $stmt2->execute();
-$stmt3 = $pdo->prepare("SELECT *
-FROM `empleado_horario` 
-INNER JOIN horario ON horario.idHorario = empleado_horario.idHorario ");
-$stmt3->execute();
 
 ?>
 
@@ -49,31 +45,14 @@ $stmt3->execute();
         <label for="idEmpleados" >Empleado</label >
 	
 			<?php
-echo '<select name="idEmpleados" id="idEmpleados" class="selector2" required>';
+echo '<select name="idempleado_horario" id="idempleado_horario" class="selector2" required>';
 // For each row from the DB display a new <option>
 foreach ($stmt2 as $row) {
     // value attribute is optional if the value and the text is the same
-    echo '<option value="'.htmlspecialchars($row['idEmpleados']).'">';
+    echo '<option value="'.htmlspecialchars($row['idempleado_horario']).'">';
     echo htmlspecialchars($row['idEmpleados']).' ';
     echo htmlspecialchars($row['apellido']).' C.i-';
     echo htmlspecialchars($row['cedula']); // The text to be displayed to the user
-    echo '</option>';
-}
-echo '</select>';
-			?>
- <label for="idHorario" >Horario</label >
-
-            			<?php
-echo '<select name="idHorario" id="idHorario" class="selector2" required>';
-// For each row from the DB display a new <option>
-foreach ($stmt3 as $row) {
-    // value attribute is optional if the value and the text is the same
-    echo '<option value="'.htmlspecialchars($row['idHorario']).'">';
-    echo htmlspecialchars($row['idHorario']).' Hora de inicio: ';
-    echo htmlspecialchars($row['hora_inicio']).' Hora final: ';
-    echo htmlspecialchars($row['hora_final']).' Dias libres: ';
-    echo htmlspecialchars($row['dia_libre_1']).' ';
-    echo htmlspecialchars($row['dia_libre_2']).' ';
     echo '</option>';
 }
 echo '</select>';

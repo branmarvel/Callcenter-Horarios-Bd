@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-07-2022 a las 22:27:41
+-- Tiempo de generación: 05-07-2022 a las 01:55:14
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.5
 
@@ -14,6 +14,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `callcenter`
 --
+CREATE DATABASE IF NOT EXISTS `callcenter` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `callcenter`;
 
 -- --------------------------------------------------------
 
@@ -21,6 +23,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `area_reportes`
 --
 
+DROP TABLE IF EXISTS `area_reportes`;
 CREATE TABLE `area_reportes` (
   `idArea_Reportes` int(11) NOT NULL,
   `recomendaciones_supervisor` varchar(100) NOT NULL,
@@ -37,30 +40,21 @@ CREATE TABLE `area_reportes` (
 -- Estructura de tabla para la tabla `asignacion_horas_extras`
 --
 
+DROP TABLE IF EXISTS `asignacion_horas_extras`;
 CREATE TABLE `asignacion_horas_extras` (
   `idAsignacion_Horas_Extras` int(11) NOT NULL,
   `asignacion` varchar(45) NOT NULL,
   `motivo` varchar(100) NOT NULL,
   `dia` varchar(45) NOT NULL,
-  `idEmpleados` int(11) NOT NULL,
-  `idHorario` int(11) NOT NULL
+  `idempleado_horario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `asignacion_horas_extras`
 --
 
-INSERT INTO `asignacion_horas_extras` (`idAsignacion_Horas_Extras`, `asignacion`, `motivo`, `dia`, `idEmpleados`, `idHorario`) VALUES
-(46, '16:14', '', '2022-07-03T21:14:48', 11, 25),
-(47, '15:17', '', '2022-07-03T21:14:54', 11, 25),
-(48, '15:17', '', '2022-07-03T21:14:54', 11, 25),
-(49, '15:17', '', '2022-07-03T21:14:54', 11, 25),
-(51, '15:19', 'dasdasad', '2022-07-03T21:16:04', 13, 29),
-(52, '2022-07-03T21:38:00', 'sd', '2022-07-03T21:38:00', 11, 25),
-(53, '2022-07-03T21:38:00', 'sd', '2022-07-03T21:38:00', 11, 25),
-(54, '2022-07-03T21:38:00', 'sd', '2022-07-03T21:38:00', 11, 25),
-(55, '2022-07-03T21:38:00', 'sd', '2022-07-03T21:38:00', 11, 25),
-(56, '2022-07-03T21:38:00', 'sd', '2022-07-03T21:38:00', 11, 25);
+INSERT INTO `asignacion_horas_extras` (`idAsignacion_Horas_Extras`, `asignacion`, `motivo`, `dia`, `idempleado_horario`) VALUES
+(2, '2022-07-05T01:39:28', 'asdasd', '2022-07-05T01:39:28', 3);
 
 -- --------------------------------------------------------
 
@@ -68,6 +62,7 @@ INSERT INTO `asignacion_horas_extras` (`idAsignacion_Horas_Extras`, `asignacion`
 -- Estructura de tabla para la tabla `asignacion_recomendacion`
 --
 
+DROP TABLE IF EXISTS `asignacion_recomendacion`;
 CREATE TABLE `asignacion_recomendacion` (
   `idAsignacion_Recomendacion` int(11) NOT NULL,
   `idRecomendaciones` int(11) NOT NULL,
@@ -81,6 +76,7 @@ CREATE TABLE `asignacion_recomendacion` (
 -- Estructura de tabla para la tabla `asistencia`
 --
 
+DROP TABLE IF EXISTS `asistencia`;
 CREATE TABLE `asistencia` (
   `idAsistencia` int(11) NOT NULL,
   `QR_emplado` varchar(45) NOT NULL,
@@ -90,7 +86,9 @@ CREATE TABLE `asistencia` (
   `idEmpleados` int(11) NOT NULL,
   `idHorario` int(11) NOT NULL,
   `idAsignacion_Horas_Extras` int(11) NOT NULL,
-  `idTipo_Asistencia` int(11) NOT NULL
+  `idTipo_Asistencia` int(11) NOT NULL,
+  `empleado_horario_idempleado_horario` int(11) NOT NULL,
+  `empleado_horario_idempleado_horario1` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -99,6 +97,7 @@ CREATE TABLE `asistencia` (
 -- Estructura de tabla para la tabla `cargo_empleado`
 --
 
+DROP TABLE IF EXISTS `cargo_empleado`;
 CREATE TABLE `cargo_empleado` (
   `idCargo_Empleado` int(11) NOT NULL,
   `tipo_cargo` varchar(45) NOT NULL
@@ -118,6 +117,7 @@ INSERT INTO `cargo_empleado` (`idCargo_Empleado`, `tipo_cargo`) VALUES
 -- Estructura de tabla para la tabla `cliente`
 --
 
+DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `idCliente` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
@@ -133,6 +133,7 @@ CREATE TABLE `cliente` (
 -- Estructura de tabla para la tabla `consultas_denuncias`
 --
 
+DROP TABLE IF EXISTS `consultas_denuncias`;
 CREATE TABLE `consultas_denuncias` (
   `idConsultas_Denuncias` int(11) NOT NULL,
   `motivo_llamada` enum('...') NOT NULL,
@@ -150,6 +151,7 @@ CREATE TABLE `consultas_denuncias` (
 -- Estructura de tabla para la tabla `departamento`
 --
 
+DROP TABLE IF EXISTS `departamento`;
 CREATE TABLE `departamento` (
   `idDepartamento` int(11) NOT NULL,
   `nombre_departamento` varchar(45) NOT NULL
@@ -169,6 +171,7 @@ INSERT INTO `departamento` (`idDepartamento`, `nombre_departamento`) VALUES
 -- Estructura de tabla para la tabla `descripcion_recomendacion`
 --
 
+DROP TABLE IF EXISTS `descripcion_recomendacion`;
 CREATE TABLE `descripcion_recomendacion` (
   `idDescripcion_Recomendacion` int(11) NOT NULL,
   `Descripcion` varchar(45) NOT NULL,
@@ -182,6 +185,7 @@ CREATE TABLE `descripcion_recomendacion` (
 -- Estructura de tabla para la tabla `desempeño_laboral`
 --
 
+DROP TABLE IF EXISTS `desempeño_laboral`;
 CREATE TABLE `desempeño_laboral` (
   `idDesempeño_Laboral` int(11) NOT NULL,
   `idArea_Reportes` int(11) NOT NULL
@@ -193,6 +197,7 @@ CREATE TABLE `desempeño_laboral` (
 -- Estructura de tabla para la tabla `empleados`
 --
 
+DROP TABLE IF EXISTS `empleados`;
 CREATE TABLE `empleados` (
   `idEmpleados` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
@@ -224,19 +229,22 @@ INSERT INTO `empleados` (`idEmpleados`, `nombre`, `apellido`, `cedula`, `fecha_i
 -- Estructura de tabla para la tabla `empleado_horario`
 --
 
+DROP TABLE IF EXISTS `empleado_horario`;
 CREATE TABLE `empleado_horario` (
+  `idempleado_horario` int(11) NOT NULL,
+  `idHorario` int(20) NOT NULL,
   `idEmpleados` int(11) NOT NULL,
-  `idHorario` int(11) NOT NULL,
-  `fecha` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `fecha` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `empleado_horario`
 --
 
-INSERT INTO `empleado_horario` (`idEmpleados`, `idHorario`, `fecha`) VALUES
-(11, 25, '2022-06-24T22:37'),
-(13, 29, '2022-07-07T11:25');
+INSERT INTO `empleado_horario` (`idempleado_horario`, `idHorario`, `idEmpleados`, `fecha`) VALUES
+(2, 27, 13, '2022-07-05T01:31:58'),
+(3, 27, 14, '2022-07-05T01:35:25'),
+(4, 28, 15, '2022-07-05T01:39:40');
 
 -- --------------------------------------------------------
 
@@ -244,6 +252,7 @@ INSERT INTO `empleado_horario` (`idEmpleados`, `idHorario`, `fecha`) VALUES
 -- Estructura de tabla para la tabla `generador_respuestas_consultas`
 --
 
+DROP TABLE IF EXISTS `generador_respuestas_consultas`;
 CREATE TABLE `generador_respuestas_consultas` (
   `idGenerador_Respuestas_Consultas` int(11) NOT NULL,
   `repuesta_consulta` enum('...') NOT NULL
@@ -255,6 +264,7 @@ CREATE TABLE `generador_respuestas_consultas` (
 -- Estructura de tabla para la tabla `generador_soluciones_denuncias`
 --
 
+DROP TABLE IF EXISTS `generador_soluciones_denuncias`;
 CREATE TABLE `generador_soluciones_denuncias` (
   `idGenerador_Soluciones_Denuncias` int(11) NOT NULL,
   `soluciones_denuncias` enum('...') NOT NULL
@@ -266,6 +276,7 @@ CREATE TABLE `generador_soluciones_denuncias` (
 -- Estructura de tabla para la tabla `horario`
 --
 
+DROP TABLE IF EXISTS `horario`;
 CREATE TABLE `horario` (
   `idHorario` int(20) NOT NULL,
   `hora_inicio` varchar(45) NOT NULL,
@@ -281,8 +292,8 @@ CREATE TABLE `horario` (
 --
 
 INSERT INTO `horario` (`idHorario`, `hora_inicio`, `tiempo_descanso`, `hora_final`, `dia_libre_1`, `dia_libre_2`, `fecha_reg`) VALUES
-(25, '17:50', '16:51', '16:53', 'Lunes', 'Martes', '2022-06-23T16:50'),
-(29, '19:53', '19:53', '18:56', 'Martes', 'Miercoles', '2022-06-17T18:53');
+(27, '21:28', '07:28', '20:28', 'Martes', 'Miercoles', '2022-07-05T01:28'),
+(28, '21:39', '19:41', '19:42', 'Lunes', 'Jueves', '2022-07-05T01:39:12');
 
 -- --------------------------------------------------------
 
@@ -290,6 +301,7 @@ INSERT INTO `horario` (`idHorario`, `hora_inicio`, `tiempo_descanso`, `hora_fina
 -- Estructura de tabla para la tabla `monitoreo_asistencia`
 --
 
+DROP TABLE IF EXISTS `monitoreo_asistencia`;
 CREATE TABLE `monitoreo_asistencia` (
   `idAsistencia` int(11) NOT NULL,
   `idEmpleados` int(11) NOT NULL,
@@ -314,6 +326,7 @@ CREATE TABLE `monitoreo_asistencia` (
 -- Estructura de tabla para la tabla `monitoreo_atencion_cliente`
 --
 
+DROP TABLE IF EXISTS `monitoreo_atencion_cliente`;
 CREATE TABLE `monitoreo_atencion_cliente` (
   `idConsultas_Denuncias` int(11) NOT NULL,
   `Cantidad_llamadas_mismo_cliente` int(11) NOT NULL,
@@ -327,6 +340,7 @@ CREATE TABLE `monitoreo_atencion_cliente` (
 -- Estructura de tabla para la tabla `motivo`
 --
 
+DROP TABLE IF EXISTS `motivo`;
 CREATE TABLE `motivo` (
   `idMotivo` int(11) NOT NULL,
   `descrpcion` varchar(100) NOT NULL,
@@ -340,6 +354,7 @@ CREATE TABLE `motivo` (
 -- Estructura de tabla para la tabla `permisos`
 --
 
+DROP TABLE IF EXISTS `permisos`;
 CREATE TABLE `permisos` (
   `idPermisos` int(11) NOT NULL,
   `fecha` date NOT NULL,
@@ -355,6 +370,7 @@ CREATE TABLE `permisos` (
 -- Estructura de tabla para la tabla `recomendaciones`
 --
 
+DROP TABLE IF EXISTS `recomendaciones`;
 CREATE TABLE `recomendaciones` (
   `idRecomendaciones` int(11) NOT NULL,
   `Recomendacion` varchar(45) NOT NULL,
@@ -367,6 +383,7 @@ CREATE TABLE `recomendaciones` (
 -- Estructura de tabla para la tabla `reposos`
 --
 
+DROP TABLE IF EXISTS `reposos`;
 CREATE TABLE `reposos` (
   `idReposos` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
@@ -384,6 +401,7 @@ CREATE TABLE `reposos` (
 -- Estructura de tabla para la tabla `respuesta_soluciones`
 --
 
+DROP TABLE IF EXISTS `respuesta_soluciones`;
 CREATE TABLE `respuesta_soluciones` (
   `idRespuesta_Soluciones` int(11) NOT NULL,
   `consulta_a_responder` varchar(45) NOT NULL,
@@ -400,6 +418,7 @@ CREATE TABLE `respuesta_soluciones` (
 -- Estructura de tabla para la tabla `salidas_intermedias`
 --
 
+DROP TABLE IF EXISTS `salidas_intermedias`;
 CREATE TABLE `salidas_intermedias` (
   `idSalidas_Intermedias` int(11) NOT NULL,
   `fecha` date NOT NULL,
@@ -413,6 +432,7 @@ CREATE TABLE `salidas_intermedias` (
 -- Estructura de tabla para la tabla `tipo_asistencia`
 --
 
+DROP TABLE IF EXISTS `tipo_asistencia`;
 CREATE TABLE `tipo_asistencia` (
   `idTipo_Asistencia` int(11) NOT NULL,
   `Asistencia_QR` varchar(45) NOT NULL,
@@ -425,6 +445,7 @@ CREATE TABLE `tipo_asistencia` (
 -- Estructura de tabla para la tabla `vacaciones`
 --
 
+DROP TABLE IF EXISTS `vacaciones`;
 CREATE TABLE `vacaciones` (
   `idVacaciones` int(11) NOT NULL,
   `fecha` date NOT NULL,
@@ -448,8 +469,8 @@ ALTER TABLE `area_reportes`
 -- Indices de la tabla `asignacion_horas_extras`
 --
 ALTER TABLE `asignacion_horas_extras`
-  ADD PRIMARY KEY (`idAsignacion_Horas_Extras`,`idEmpleados`,`idHorario`),
-  ADD KEY `fk_Asignacion_Horas_Extras_Empleado_Horario1_idx` (`idEmpleados`,`idHorario`);
+  ADD PRIMARY KEY (`idAsignacion_Horas_Extras`,`idempleado_horario`),
+  ADD KEY `fk_asignacion_horas_extras_empleado_horario1_idx` (`idempleado_horario`);
 
 --
 -- Indices de la tabla `asignacion_recomendacion`
@@ -463,10 +484,10 @@ ALTER TABLE `asignacion_recomendacion`
 -- Indices de la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
-  ADD PRIMARY KEY (`idAsistencia`,`idEmpleados`,`idHorario`,`idAsignacion_Horas_Extras`,`idTipo_Asistencia`),
-  ADD KEY `fk_Asistencia_Empleado_Horario1_idx` (`idEmpleados`,`idHorario`),
+  ADD PRIMARY KEY (`idAsistencia`,`idEmpleados`,`idHorario`,`idAsignacion_Horas_Extras`,`idTipo_Asistencia`,`empleado_horario_idempleado_horario`,`empleado_horario_idempleado_horario1`),
   ADD KEY `fk_Asistencia_Asignacion_Horas_Extras1_idx` (`idAsignacion_Horas_Extras`),
-  ADD KEY `fk_Asistencia_Tipo_Asistencia1_idx` (`idTipo_Asistencia`);
+  ADD KEY `fk_Asistencia_Tipo_Asistencia1_idx` (`idTipo_Asistencia`),
+  ADD KEY `fk_asistencia_empleado_horario1_idx` (`empleado_horario_idempleado_horario1`);
 
 --
 -- Indices de la tabla `cargo_empleado`
@@ -514,15 +535,16 @@ ALTER TABLE `desempeño_laboral`
 ALTER TABLE `empleados`
   ADD PRIMARY KEY (`idEmpleados`,`idCargo_Empleado`,`idDepartamento`),
   ADD UNIQUE KEY `cedula_UNIQUE` (`cedula`),
-  ADD KEY `fk_Empleados_Cargo_Empleado_idx` (`idCargo_Empleado`),
-  ADD KEY `fk_Empleados_Departamento1_idx` (`idDepartamento`);
+  ADD KEY `fk_empleados_cargo_empleado1_idx` (`idCargo_Empleado`),
+  ADD KEY `fk_empleados_departamento1_idx` (`idDepartamento`);
 
 --
 -- Indices de la tabla `empleado_horario`
 --
 ALTER TABLE `empleado_horario`
-  ADD PRIMARY KEY (`idEmpleados`,`idHorario`),
-  ADD KEY `fk_Empleado_Horario_Horario1_idx` (`idHorario`);
+  ADD PRIMARY KEY (`idempleado_horario`,`idHorario`,`idEmpleados`),
+  ADD KEY `fk_empleado_horario_horario1_idx` (`idHorario`),
+  ADD KEY `fk_empleado_horario_empleados1_idx` (`idEmpleados`);
 
 --
 -- Indices de la tabla `generador_respuestas_consultas`
@@ -623,28 +645,10 @@ ALTER TABLE `vacaciones`
 --
 
 --
--- AUTO_INCREMENT de la tabla `area_reportes`
---
-ALTER TABLE `area_reportes`
-  MODIFY `idArea_Reportes` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `asignacion_horas_extras`
 --
 ALTER TABLE `asignacion_horas_extras`
-  MODIFY `idAsignacion_Horas_Extras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
-
---
--- AUTO_INCREMENT de la tabla `asignacion_recomendacion`
---
-ALTER TABLE `asignacion_recomendacion`
-  MODIFY `idAsignacion_Recomendacion` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `asistencia`
---
-ALTER TABLE `asistencia`
-  MODIFY `idAsistencia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAsignacion_Horas_Extras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo_empleado`
@@ -653,34 +657,10 @@ ALTER TABLE `cargo_empleado`
   MODIFY `idCargo_Empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `cliente`
---
-ALTER TABLE `cliente`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `consultas_denuncias`
---
-ALTER TABLE `consultas_denuncias`
-  MODIFY `idConsultas_Denuncias` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
   MODIFY `idDepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `descripcion_recomendacion`
---
-ALTER TABLE `descripcion_recomendacion`
-  MODIFY `idDescripcion_Recomendacion` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `desempeño_laboral`
---
-ALTER TABLE `desempeño_laboral`
-  MODIFY `idDesempeño_Laboral` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
@@ -689,70 +669,16 @@ ALTER TABLE `empleados`
   MODIFY `idEmpleados` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT de la tabla `generador_respuestas_consultas`
+-- AUTO_INCREMENT de la tabla `empleado_horario`
 --
-ALTER TABLE `generador_respuestas_consultas`
-  MODIFY `idGenerador_Respuestas_Consultas` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `generador_soluciones_denuncias`
---
-ALTER TABLE `generador_soluciones_denuncias`
-  MODIFY `idGenerador_Soluciones_Denuncias` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `empleado_horario`
+  MODIFY `idempleado_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `horario`
 --
 ALTER TABLE `horario`
-  MODIFY `idHorario` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT de la tabla `motivo`
---
-ALTER TABLE `motivo`
-  MODIFY `idMotivo` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `permisos`
---
-ALTER TABLE `permisos`
-  MODIFY `idPermisos` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `recomendaciones`
---
-ALTER TABLE `recomendaciones`
-  MODIFY `idRecomendaciones` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `reposos`
---
-ALTER TABLE `reposos`
-  MODIFY `idReposos` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `respuesta_soluciones`
---
-ALTER TABLE `respuesta_soluciones`
-  MODIFY `idRespuesta_Soluciones` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `salidas_intermedias`
---
-ALTER TABLE `salidas_intermedias`
-  MODIFY `idSalidas_Intermedias` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `tipo_asistencia`
---
-ALTER TABLE `tipo_asistencia`
-  MODIFY `idTipo_Asistencia` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `vacaciones`
---
-ALTER TABLE `vacaciones`
-  MODIFY `idVacaciones` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idHorario` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Restricciones para tablas volcadas
@@ -768,7 +694,7 @@ ALTER TABLE `area_reportes`
 -- Filtros para la tabla `asignacion_horas_extras`
 --
 ALTER TABLE `asignacion_horas_extras`
-  ADD CONSTRAINT `fk_Asignacion_Horas_Extras_Empleado_Horario1` FOREIGN KEY (`idEmpleados`,`idHorario`) REFERENCES `empleado_horario` (`idEmpleados`, `idHorario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_asignacion_horas_extras_empleado_horario1` FOREIGN KEY (`idempleado_horario`) REFERENCES `empleado_horario` (`idempleado_horario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `asignacion_recomendacion`
@@ -782,8 +708,8 @@ ALTER TABLE `asignacion_recomendacion`
 --
 ALTER TABLE `asistencia`
   ADD CONSTRAINT `fk_Asistencia_Asignacion_Horas_Extras1` FOREIGN KEY (`idAsignacion_Horas_Extras`) REFERENCES `asignacion_horas_extras` (`idAsignacion_Horas_Extras`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Asistencia_Empleado_Horario1` FOREIGN KEY (`idEmpleados`,`idHorario`) REFERENCES `empleado_horario` (`idEmpleados`, `idHorario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Asistencia_Tipo_Asistencia1` FOREIGN KEY (`idTipo_Asistencia`) REFERENCES `tipo_asistencia` (`idTipo_Asistencia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Asistencia_Tipo_Asistencia1` FOREIGN KEY (`idTipo_Asistencia`) REFERENCES `tipo_asistencia` (`idTipo_Asistencia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_asistencia_empleado_horario1` FOREIGN KEY (`empleado_horario_idempleado_horario1`) REFERENCES `empleado_horario` (`idempleado_horario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `cliente`
@@ -795,7 +721,7 @@ ALTER TABLE `cliente`
 -- Filtros para la tabla `consultas_denuncias`
 --
 ALTER TABLE `consultas_denuncias`
-  ADD CONSTRAINT `fk_Consultas_Denuncias_Empleados1` FOREIGN KEY (`idEmpleados`,`idCargo_Empleado`,`idDepartamento`) REFERENCES `empleados` (`idEmpleados`, `idCargo_Empleado`, `idDepartamento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Consultas_Denuncias_Empleados1` FOREIGN KEY (`idEmpleados`) REFERENCES `empleados` (`idEmpleados`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `descripcion_recomendacion`
@@ -813,15 +739,15 @@ ALTER TABLE `desempeño_laboral`
 -- Filtros para la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  ADD CONSTRAINT `fk_Empleados_Cargo_Empleado` FOREIGN KEY (`idCargo_Empleado`) REFERENCES `cargo_empleado` (`idCargo_Empleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Empleados_Departamento1` FOREIGN KEY (`idDepartamento`) REFERENCES `departamento` (`idDepartamento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_empleados_cargo_empleado1` FOREIGN KEY (`idCargo_Empleado`) REFERENCES `cargo_empleado` (`idCargo_Empleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_empleados_departamento1` FOREIGN KEY (`idDepartamento`) REFERENCES `departamento` (`idDepartamento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `empleado_horario`
 --
 ALTER TABLE `empleado_horario`
-  ADD CONSTRAINT `fk_Empleado_Horario_Empleados1` FOREIGN KEY (`idEmpleados`) REFERENCES `empleados` (`idEmpleados`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Empleado_Horario_Horario1` FOREIGN KEY (`idHorario`) REFERENCES `horario` (`idHorario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_empleado_horario_empleados1` FOREIGN KEY (`idEmpleados`) REFERENCES `empleados` (`idEmpleados`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_empleado_horario_horario1` FOREIGN KEY (`idHorario`) REFERENCES `horario` (`idHorario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `monitoreo_asistencia`
