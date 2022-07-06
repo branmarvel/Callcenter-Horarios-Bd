@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Caracas');?>
+<?php
 function pdo_connect_mysql() {
     $DATABASE_HOST = 'localhost';
     $DATABASE_USER = 'root';
@@ -60,6 +62,7 @@ echo <<<EOT
 
 <script src=".\Lib\select2\js\select2.full.min.js"></script>
 <script src=".\Lib\select2\js\select2-ready.js"></script>
+
     </body>
 </html>
 EOT;
